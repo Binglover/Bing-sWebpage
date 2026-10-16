@@ -1,0 +1,294 @@
+:root {
+  --bg-1: #000000;
+  --bg-2: #000000;
+  --accent: #000000;
+  --text: #FFFFFF;
+  --muted: #c8c8d0;
+  --border: rgba(255,255,255,0.12);
+  --card: rgba(255,255,255,0.06);
+  --gold-1: #ffcc00;
+  --gold-2: #ffd700;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --shadow-lg: 0 16px 50px rgba(0,0,0,.5);
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, var(--bg-2), var(--accent));
+  background-size: 300% 300%;
+  animation: gradientAnimation 16s ease infinite;
+  overflow-x: hidden;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.site {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+header[role="banner"] {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  text-align: center;
+  margin-top: 60px;
+  animation: fadeIn 1.5s ease forwards;
+}
+
+  /* ✅ Force title visible on the calculator page */
+body .title {
+  opacity: 1 !important;
+  transform: none !important;
+  font-size: clamp(2rem, 3.2vw + 1rem, 3.25rem);
+  margin: 0;
+  animation: titleSwoop 1.5s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+.title--gold {
+  background: linear-gradient(90deg, var(--gold-1), var(--gold-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2s infinite ease-in-out;
+}
+
+.subtle { color: var(--muted); margin: 0; }
+.rarity { display: none; color: var(--gold-1); font-weight: bold; }
+
+/* ✅ MAIN LAYOUT: GAME + LEADERBOARD CENTERING */
+main[role="main"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* ✅ Card container styling (shared by Game + Leaderboard) */
+.card {
+  width: 100%;
+  max-width: 900px;       /* <— Controls width of game + leaderboard */
+  background: var(--card);
+  margin: 22px auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.card__header {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card__body { padding: 16px; }
+
+/* ✅ GAME FRAME STYLING */
+.game-frame {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ✅ FORCE SWF TO FIT THE CONTAINER */
+#game-frame object,
+#game-frame embed {
+  width: 120% !important;
+  max-width: 750px;
+  height: 420px !important;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* ✅ LEADERBOARD TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  font-weight: 600;
+  padding: 10px 12px;
+  color: var(--muted);
+}
+
+tbody td {
+  padding: 12px;
+  border-top: 1px solid var(--border);
+}
+
+tbody tr:hover {
+  background: rgba(255,255,255,.04);
+}
+
+/* Column widths */
+.rank { width: 60px; text-align: right; color: var(--muted); }
+.score { text-align: right; }
+
+/* === PIXEL-PERFECT CALCULATOR === */
+.calculator {
+  width: 420px;              /* overall size */
+  margin: 40px auto;
+  padding: 24px;
+  background: #000;
+  border: 4px solid #fff;
+  border-radius: 0;
+  box-shadow: 0 0 0 4px #000, 0 0 0 8px #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  /* pixel rendering */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  font-smooth: never;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+  font-family: "Press Start 2P", monospace;
+}
+
+#calc-display {
+  width: 90%;
+  height: 60px;
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+  text-align: right;
+  color: #fff;
+  background: #000;
+  border: 2px solid #fff;
+  outline: none;
+  padding: 8px;
+  font-family: "Press Start 2P", monospace !important;
+  letter-spacing: 2px;
+  color: #fff;
+  background: #000;
+  border: 2px solid #fff;
+  outline: none;
+  caret-color: #fff; /* makes typing cursor visible */
+  image-rendering: pixelated;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: none;
+}
+
+.calc-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 90%;
+}
+
+#calculator button {
+  background: #000;
+  color: #fff;
+  border: 2px solid #fff;
+  font-family: "Press Start 2P", monospace;
+  font-size: 1rem;
+  padding: 18px;
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s, transform 0.05s;
+  image-rendering: pixelated;
+}
+
+#calculator button:hover {
+  background: #fff;
+  color: #000;
+}
+
+#calculator button:active {
+  transform: translateY(2px);
+}
+
+/* PASSWORD PANEL */
+#password-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--gold-1);
+  color: #000;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+#password-panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#password-panel .panel-content {
+  background: var(--card);
+  padding: 24px;
+  border-radius: var(--radius);
+  width: 300px;
+}
+
+#close-panel {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* ✨ Pixel-perfect rendering fixes */
+body, .calculator, #calculator button, #calc-display {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Optional: make everything feel a bit chunkier */
+#calc-display, #calculator button {
+  letter-spacing: 1px;
+}
+
+/* Optional: add a faint CRT scanline effect (optional aesthetic) */
+.calculator::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    rgba(0,0,0,0.05) 0px,
+    rgba(0,0,0,0.05) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+@keyframes shimmer { 0%, 100% {text-shadow: 0 0 10px gold} 50% {text-shadow: 0 0 25px gold} }
+@keyframes titleSwoop { from {opacity: 0; transform: translateY(-40px)} }
